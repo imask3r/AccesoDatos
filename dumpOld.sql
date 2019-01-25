@@ -15,20 +15,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -302,99 +288,79 @@ ALTER TABLE ONLY public.tecnicos ALTER COLUMN "idTecnico" SET DEFAULT nextval('p
 -- Data for Name: disp_disponibles; Type: TABLE DATA; Schema: public; Owner: usuario
 --
 
-INSERT INTO public.disp_disponibles VALUES (1, 'iphone');
-INSERT INTO public.disp_disponibles VALUES (2, 'samsung');
-INSERT INTO public.disp_disponibles VALUES (3, 'nokia');
 
 
 --
 -- Data for Name: estado_reparacion; Type: TABLE DATA; Schema: public; Owner: usuario
 --
 
-INSERT INTO public.estado_reparacion VALUES (1, 1, 'en reparacion');
-INSERT INTO public.estado_reparacion VALUES (2, 2, 'listo');
-INSERT INTO public.estado_reparacion VALUES (3, 3, 'en reparacion');
-INSERT INTO public.estado_reparacion VALUES (4, 4, 'en proceso');
 
 
 --
 -- Data for Name: listado_tiendas; Type: TABLE DATA; Schema: public; Owner: usuario
 --
 
-INSERT INTO public.listado_tiendas VALUES (1, 'Reparaciones1', 'Calle Reparaciones1');
-INSERT INTO public.listado_tiendas VALUES (2, 'Reparaciones2', 'Calle Reparaciones2');
-INSERT INTO public.listado_tiendas VALUES (3, 'Reparaciones3', 'Calle Reparaciones3');
 
 
 --
 -- Data for Name: ordenes_reparacion; Type: TABLE DATA; Schema: public; Owner: usuario
 --
 
-INSERT INTO public.ordenes_reparacion VALUES (1, 1);
-INSERT INTO public.ordenes_reparacion VALUES (2, 2);
-INSERT INTO public.ordenes_reparacion VALUES (3, 3);
 
 
 --
 -- Data for Name: tecnicos; Type: TABLE DATA; Schema: public; Owner: usuario
 --
 
-INSERT INTO public.tecnicos VALUES (1, 'Juan');
-INSERT INTO public.tecnicos VALUES (2, 'Pedro');
-INSERT INTO public.tecnicos VALUES (3, 'Maria');
-INSERT INTO public.tecnicos VALUES (4, 'Rosa');
-INSERT INTO public.tecnicos VALUES (5, 'Ivan');
-INSERT INTO public.tecnicos VALUES (6, 'Dani');
-INSERT INTO public.tecnicos VALUES (7, 'Alberto');
 
 
 --
 -- Name: disp_disponibles_idDispositivo_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
 --
 
-SELECT pg_catalog.setval('public."disp_disponibles_idDispositivo_seq"', 3, true);
+SELECT pg_catalog.setval('public."disp_disponibles_idDispositivo_seq"', 1, false);
 
 
 --
 -- Name: estado_reparacion_idEStadoReparacion_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
 --
 
-SELECT pg_catalog.setval('public."estado_reparacion_idEStadoReparacion_seq"', 4, true);
+SELECT pg_catalog.setval('public."estado_reparacion_idEStadoReparacion_seq"', 1, false);
 
 
 --
 -- Name: estado_reparacion_idOrdenReparacion_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
 --
 
-SELECT pg_catalog.setval('public."estado_reparacion_idOrdenReparacion_seq"', 4, true);
+SELECT pg_catalog.setval('public."estado_reparacion_idOrdenReparacion_seq"', 1, false);
 
 
 --
 -- Name: listado_tiendas_idTienda_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
 --
 
-SELECT pg_catalog.setval('public."listado_tiendas_idTienda_seq"', 3, true);
+SELECT pg_catalog.setval('public."listado_tiendas_idTienda_seq"', 1, false);
 
 
 --
 -- Name: ordenes_reparacion_idOrdenReparacion_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
 --
 
-SELECT pg_catalog.setval('public."ordenes_reparacion_idOrdenReparacion_seq"', 3, true);
+SELECT pg_catalog.setval('public."ordenes_reparacion_idOrdenReparacion_seq"', 1, false);
 
 
 --
 -- Name: ordenes_reparacion_idTecnico_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
 --
 
-SELECT pg_catalog.setval('public."ordenes_reparacion_idTecnico_seq"', 3, true);
+SELECT pg_catalog.setval('public."ordenes_reparacion_idTecnico_seq"', 1, false);
 
 
 --
 -- Name: tecnicos_idTecnico_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
 --
 
-SELECT pg_catalog.setval('public."tecnicos_idTecnico_seq"', 7, true);
+SELECT pg_catalog.setval('public."tecnicos_idTecnico_seq"', 1, false);
 
 
 --
