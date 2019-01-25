@@ -1,3 +1,4 @@
+-- BASE DE DATOS ANTIGUA (BACKUP)
 --
 -- PostgreSQL database dump
 --
