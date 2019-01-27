@@ -1,5 +1,5 @@
- var wsUri = "ws://localhost:3344";
-  var output;
+    var wsUri = "ws://localhost:3344";
+    var output;
 
   function init()
   {
