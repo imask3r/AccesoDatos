@@ -18,13 +18,13 @@
 
   function onOpen(evt)
   {
-    writeToScreen("CONNECTED");
-    doSend("Hola caracola");
+    writeToScreen("Sistema conectado correctamente");
+    //doSend("Hola caracola");
   }
 
   function onClose(evt)
   {
-    writeToScreen("DISCONNECTED");
+    writeToScreen("Sistema desconectado correctamente");
   }
 
   function onMessage(evt)
@@ -50,6 +50,17 @@
     pre.style.wordWrap = "break-word";
     pre.innerHTML = message;
     output.appendChild(pre);
+  }
+  
+  //Función para recoger valores del input (WIP)
+  function getValues() {
+    $(document).ready(function(){
+      $("#submit").on("click",function(){
+        var nombre = document.getElementById("nombre");
+        $("#text").html(test);
+      })
+    });
+    doSend(nombre);
   }
 
   window.addEventListener("load", init, false);
