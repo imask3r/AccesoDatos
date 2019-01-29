@@ -1,7 +1,7 @@
+#include <QtCore/QDebug>
 #include "testserver.h"
 #include "QtWebSockets/qwebsocketserver.h"
 #include "QtWebSockets/qwebsocket.h"
-#include <QtCore/QDebug>
 
 
 TestServer::TestServer(quint16 port) :

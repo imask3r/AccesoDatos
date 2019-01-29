@@ -22,5 +22,9 @@ CONFIG += c++11
 CONFIG += console
 
 # Input
-HEADERS += testserver.h
-SOURCES += main.cpp testserver.cpp
+HEADERS += testserver.h \
+    xmlvalid.h \
+    xmlcreator.h
+SOURCES += main.cpp testserver.cpp \
+    xmlvalid.cpp \
+    xmlcreator.cpp
