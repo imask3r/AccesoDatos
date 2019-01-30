@@ -1,12 +1,18 @@
-#include <QtSql>
-#include <QSqlQuery>
-#include <QDebug>
 #include "xmlcreator.h"
 
 
 xmlcreator::xmlcreator()
 {
-    //QString modelos[];
+    QFile xml("moviles.xml");
+    qDebug() << "XML: moviles.xml creado";
+    xml.open(QIODevice::WriteOnly);
+
+    QXmlStreamWriter writerXml(&xml);
+    writerXml.setAutoFormatting(true);
+    writerXml.writeStartDocument();
+    writerXml.writeStartElement("moviles");
+
+    /* -------- PARTE SQL ------- */
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("127.0.0.1");
@@ -23,29 +29,16 @@ xmlcreator::xmlcreator()
 
         while (query.next()) {
             //WIP: Rellenar array
-            qDebug() << "Modelo: " << query.value(1).toString();
+            //qDebug() << "Modelo: " << query.value(1).toString();
+            //modelos[5] = query.value(1).toString();
+            //qDebug() << "MOdelos2: " << modelos[5];
+            writerXml.writeStartElement("movil");
+            writerXml.writeAttribute("modelo", query.value(1).toString());
+            writerXml.writeEndElement();
         }
+        writerXml.writeEndElement();
     } else {
         qDebug() << "Error de conexion";
     }
-
-
-    QFile xml("moviles.xml");
-    qDebug() << "XML: moviles.xml creado";
-    xml.open(QIODevice::WriteOnly);
-
-    QXmlStreamWriter writerXml(&xml);
-    writerXml.setAutoFormatting(true);
-    writerXml.writeStartDocument();
-
-    /* SUSTUTUIR ESTO Y RELLENARLO CON DATOS DE LA BASE DE DATOS */
-    writerXml.writeStartElement("moviles");
-
-    writerXml.writeStartElement("movil");
-    writerXml.writeAttribute("modelo", "iPhone 8");
-    writerXml.writeEndElement();
-
-    writerXml.writeEndElement();
-
 
 }

@@ -5,6 +5,9 @@
 #include <QTextStream>
 #include <QFile>
 #include <QtSql/QSqlQuery>
+#include <QtSql>
+#include <QSqlQuery>
+#include <QDebug>
 
 class xmlcreator
 {

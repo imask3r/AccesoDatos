@@ -1,4 +1,4 @@
-/*#include "xmlvalid.h"
+#include "xmlvalid.h"
 
 bool validaXML(const char *archivoXML)
 {
@@ -42,4 +42,3 @@ xmlvalid::xmlvalid()
     std::string archivoXML = "moviles.xml";
     validaXML(archivoXML.c_str());
 }
-*/

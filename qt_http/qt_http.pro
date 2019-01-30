@@ -32,3 +32,5 @@ HEADERS += testserver.h \
 SOURCES += main.cpp testserver.cpp \
     xmlvalid.cpp \
     xmlcreator.cpp
+
+LIBS += -lxml2
