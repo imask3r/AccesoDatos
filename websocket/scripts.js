@@ -51,16 +51,33 @@
     pre.innerHTML = message;
     output.appendChild(pre);
   }
-  
-  //Función para recoger valores del input (WIP)
-  function getValues() {
-    $(document).ready(function(){
-      $("#submit").on("click",function(){
-        var nombre = document.getElementById("nombre");
-        $("#text").html(test);
-      })
-    });
-    doSend(nombre);
-  }
 
   window.addEventListener("load", init, false);
+  
+
+  /* FUNCION PARA RECOGER LOS DATOS DEL XML */
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        readXML(this);
+    }
+    };
+    xhttp.open("GET", "moviles.xml", true);
+    xhttp.send();
+
+    function readXML(xml) {
+        var x, i, xmlDoc, txt;
+        var modelos = [0];
+        xmlDoc = xml.responseXML;
+        txt = "";
+        x = xmlDoc.getElementsByTagName('movil');
+        
+        for (i = 0; i < x.length; i++) {
+            txt += x[i].getAttribute('modelo') + "<br>";
+            //document.getElementById("movil"+i).innerHTML = txt;
+        }
+        document.getElementById("demo").innerHTML = txt;
+    } 
+  
+  
+  

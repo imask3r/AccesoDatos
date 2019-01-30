@@ -1,6 +1,5 @@
 #include "xmlcreator.h"
 
-
 xmlcreator::xmlcreator()
 {
     QFile xml("moviles.xml");
@@ -28,10 +27,6 @@ xmlcreator::xmlcreator()
         QSqlQuery query("SELECT * FROM disp_disponibles");
 
         while (query.next()) {
-            //WIP: Rellenar array
-            //qDebug() << "Modelo: " << query.value(1).toString();
-            //modelos[5] = query.value(1).toString();
-            //qDebug() << "MOdelos2: " << modelos[5];
             writerXml.writeStartElement("movil");
             writerXml.writeAttribute("modelo", query.value(1).toString());
             writerXml.writeEndElement();
