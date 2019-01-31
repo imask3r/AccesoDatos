@@ -56,27 +56,31 @@
   
 
   /* FUNCION PARA RECOGER LOS DATOS DEL XML */
-  var xhttp = new XMLHttpRequest();
+    var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         readXML(this);
     }
     };
+    
     xhttp.open("GET", "moviles.xml", true);
     xhttp.send();
 
     function readXML(xml) {
         var x, i, xmlDoc, txt;
-        var modelos = [0];
         xmlDoc = xml.responseXML;
-        txt = "";
+        //txt = "";
+        var txt = new Array();
         x = xmlDoc.getElementsByTagName('movil');
         
         for (i = 0; i < x.length; i++) {
-            txt += x[i].getAttribute('modelo') + "<br>";
-            //document.getElementById("movil"+i).innerHTML = txt;
+            txt[i] = x[i].getAttribute('modelo');
+            var moviles = [txt];
+            //var sel = document.getElementById('moviles');
+            writeToScreen("<input type='checkbox'>" + txt[i] + "<br>");
         }
-        document.getElementById("demo").innerHTML = txt;
+            
+        
     } 
   
   

@@ -3,6 +3,7 @@
 xmlcreator::xmlcreator()
 {
     QFile xml("moviles.xml");
+    system("mv moviles.xml /srv/www/htdocs/websocket/");//Lo transporto a esta dirección para poder recoger de forma más fácil los datos en el javascript
     qDebug() << "XML: moviles.xml creado";
     xml.open(QIODevice::WriteOnly);
 
