@@ -34,6 +34,41 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: accesoTecnicos; Type: TABLE; Schema: public; Owner: usuario
+--
+
+CREATE TABLE public."accesoTecnicos" (
+    "idAccesoTecnicos" integer NOT NULL,
+    "usuarioTecnicos" character varying(255) NOT NULL,
+    "contraTecnicos" character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public."accesoTecnicos" OWNER TO usuario;
+
+--
+-- Name: accesoTecnicos_idAccesoTecnicos_seq; Type: SEQUENCE; Schema: public; Owner: usuario
+--
+
+CREATE SEQUENCE public."accesoTecnicos_idAccesoTecnicos_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."accesoTecnicos_idAccesoTecnicos_seq" OWNER TO usuario;
+
+--
+-- Name: accesoTecnicos_idAccesoTecnicos_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: usuario
+--
+
+ALTER SEQUENCE public."accesoTecnicos_idAccesoTecnicos_seq" OWNED BY public."accesoTecnicos"."idAccesoTecnicos";
+
+
+--
 -- Name: disp_disponibles; Type: TABLE; Schema: public; Owner: usuario
 --
 
@@ -250,6 +285,13 @@ ALTER SEQUENCE public."tecnicos_idTecnico_seq" OWNED BY public.tecnicos."idTecni
 
 
 --
+-- Name: accesoTecnicos idAccesoTecnicos; Type: DEFAULT; Schema: public; Owner: usuario
+--
+
+ALTER TABLE ONLY public."accesoTecnicos" ALTER COLUMN "idAccesoTecnicos" SET DEFAULT nextval('public."accesoTecnicos_idAccesoTecnicos_seq"'::regclass);
+
+
+--
 -- Name: disp_disponibles idDispositivo; Type: DEFAULT; Schema: public; Owner: usuario
 --
 
@@ -299,12 +341,22 @@ ALTER TABLE ONLY public.tecnicos ALTER COLUMN "idTecnico" SET DEFAULT nextval('p
 
 
 --
+-- Data for Name: accesoTecnicos; Type: TABLE DATA; Schema: public; Owner: usuario
+--
+
+INSERT INTO public."accesoTecnicos" VALUES (1, 'tecnico1', 'tecnico1');
+INSERT INTO public."accesoTecnicos" VALUES (2, 'tecnico2', 'tecnico2');
+
+
+--
 -- Data for Name: disp_disponibles; Type: TABLE DATA; Schema: public; Owner: usuario
 --
 
 INSERT INTO public.disp_disponibles VALUES (1, 'iphone');
 INSERT INTO public.disp_disponibles VALUES (2, 'samsung');
 INSERT INTO public.disp_disponibles VALUES (3, 'nokia');
+INSERT INTO public.disp_disponibles VALUES (4, 'huawei');
+INSERT INTO public.disp_disponibles VALUES (5, 'pixel');
 
 
 --
@@ -349,10 +401,17 @@ INSERT INTO public.tecnicos VALUES (7, 'Alberto');
 
 
 --
+-- Name: accesoTecnicos_idAccesoTecnicos_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
+--
+
+SELECT pg_catalog.setval('public."accesoTecnicos_idAccesoTecnicos_seq"', 2, true);
+
+
+--
 -- Name: disp_disponibles_idDispositivo_seq; Type: SEQUENCE SET; Schema: public; Owner: usuario
 --
 
-SELECT pg_catalog.setval('public."disp_disponibles_idDispositivo_seq"', 3, true);
+SELECT pg_catalog.setval('public."disp_disponibles_idDispositivo_seq"', 5, true);
 
 
 --
@@ -395,6 +454,30 @@ SELECT pg_catalog.setval('public."ordenes_reparacion_idTecnico_seq"', 3, true);
 --
 
 SELECT pg_catalog.setval('public."tecnicos_idTecnico_seq"', 7, true);
+
+
+--
+-- Name: accesoTecnicos accesoTecnicos_contraTecnicos_key; Type: CONSTRAINT; Schema: public; Owner: usuario
+--
+
+ALTER TABLE ONLY public."accesoTecnicos"
+    ADD CONSTRAINT "accesoTecnicos_contraTecnicos_key" UNIQUE ("contraTecnicos");
+
+
+--
+-- Name: accesoTecnicos accesoTecnicos_pkey; Type: CONSTRAINT; Schema: public; Owner: usuario
+--
+
+ALTER TABLE ONLY public."accesoTecnicos"
+    ADD CONSTRAINT "accesoTecnicos_pkey" PRIMARY KEY ("idAccesoTecnicos");
+
+
+--
+-- Name: accesoTecnicos accesoTecnicos_usuarioTecnicos_key; Type: CONSTRAINT; Schema: public; Owner: usuario
+--
+
+ALTER TABLE ONLY public."accesoTecnicos"
+    ADD CONSTRAINT "accesoTecnicos_usuarioTecnicos_key" UNIQUE ("usuarioTecnicos");
 
 
 --
