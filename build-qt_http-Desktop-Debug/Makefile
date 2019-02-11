@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../qt_http -I. -I../qt_http -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtSql -isystem /usr/include/qt5/QtWebSockets -isystem /usr/include/qt5/QtNetwork -isystem /usr/include/qt5/QtCore -I. -isystem /usr/include/libdrm -I/usr/lib64/qt5/mkspecs/linux-g++
+INCPATH       = -I../qt_http -I. -I../qt_http -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtSql -isystem /usr/include/qt5/QtWebSockets -isystem /usr/include/qt5/QtNetwork -isystem /usr/include/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib64/qt5/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake-qt5
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = qt_http1.0.0
 DISTDIR = /home/ivan/servicio_tecnico_moviles/build-qt_http-Desktop-Debug/.tmp/qt_http1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) -lxml2 -lQt5Gui -L/usr/lib64 -lQt5Sql -lQt5WebSockets -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -lxml2 -lQt5Widgets -L/usr/lib64 -lQt5Gui -lQt5Sql -lQt5WebSockets -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,12 +53,18 @@ OBJECTS_DIR   = ./
 SOURCES       = ../qt_http/main.cpp \
 		../qt_http/testserver.cpp \
 		../qt_http/xmlvalid.cpp \
-		../qt_http/xmlcreator.cpp moc_testserver.cpp
+		../qt_http/xmlcreator.cpp \
+		../qt_http/monitor.cpp \
+		../qt_http/xmlestados.cpp moc_testserver.cpp \
+		moc_monitor.cpp
 OBJECTS       = main.o \
 		testserver.o \
 		xmlvalid.o \
 		xmlcreator.o \
-		moc_testserver.o
+		monitor.o \
+		xmlestados.o \
+		moc_testserver.o \
+		moc_monitor.o
 DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
 		/usr/lib64/qt5/mkspecs/common/linux.conf \
@@ -172,6 +178,7 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/features/resources.prf \
 		/usr/lib64/qt5/mkspecs/features/moc.prf \
 		/usr/lib64/qt5/mkspecs/features/unix/opengl.prf \
+		/usr/lib64/qt5/mkspecs/features/uic.prf \
 		/usr/lib64/qt5/mkspecs/features/unix/thread.prf \
 		/usr/lib64/qt5/mkspecs/features/qmake_use.prf \
 		/usr/lib64/qt5/mkspecs/features/file_copies.prf \
@@ -181,10 +188,14 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/features/lex.prf \
 		../qt_http/qt_http.pro ../qt_http/testserver.h \
 		../qt_http/xmlvalid.h \
-		../qt_http/xmlcreator.h ../qt_http/main.cpp \
+		../qt_http/xmlcreator.h \
+		../qt_http/monitor.h \
+		../qt_http/xmlestados.h ../qt_http/main.cpp \
 		../qt_http/testserver.cpp \
 		../qt_http/xmlvalid.cpp \
-		../qt_http/xmlcreator.cpp
+		../qt_http/xmlcreator.cpp \
+		../qt_http/monitor.cpp \
+		../qt_http/xmlestados.cpp
 QMAKE_TARGET  = qt_http
 DESTDIR       = 
 TARGET        = qt_http
@@ -193,7 +204,7 @@ TARGET        = qt_http
 first: all
 ####### Build rules
 
-$(TARGET):  $(OBJECTS)  
+$(TARGET): ui_monitor.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../qt_http/qt_http.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
@@ -309,6 +320,7 @@ Makefile: ../qt_http/qt_http.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /us
 		/usr/lib64/qt5/mkspecs/features/resources.prf \
 		/usr/lib64/qt5/mkspecs/features/moc.prf \
 		/usr/lib64/qt5/mkspecs/features/unix/opengl.prf \
+		/usr/lib64/qt5/mkspecs/features/uic.prf \
 		/usr/lib64/qt5/mkspecs/features/unix/thread.prf \
 		/usr/lib64/qt5/mkspecs/features/qmake_use.prf \
 		/usr/lib64/qt5/mkspecs/features/file_copies.prf \
@@ -317,6 +329,7 @@ Makefile: ../qt_http/qt_http.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /us
 		/usr/lib64/qt5/mkspecs/features/yacc.prf \
 		/usr/lib64/qt5/mkspecs/features/lex.prf \
 		../qt_http/qt_http.pro \
+		/usr/lib64/libQt5Widgets.prl \
 		/usr/lib64/libQt5Gui.prl \
 		/usr/lib64/libQt5Sql.prl \
 		/usr/lib64/libQt5WebSockets.prl \
@@ -436,6 +449,7 @@ Makefile: ../qt_http/qt_http.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /us
 /usr/lib64/qt5/mkspecs/features/resources.prf:
 /usr/lib64/qt5/mkspecs/features/moc.prf:
 /usr/lib64/qt5/mkspecs/features/unix/opengl.prf:
+/usr/lib64/qt5/mkspecs/features/uic.prf:
 /usr/lib64/qt5/mkspecs/features/unix/thread.prf:
 /usr/lib64/qt5/mkspecs/features/qmake_use.prf:
 /usr/lib64/qt5/mkspecs/features/file_copies.prf:
@@ -444,6 +458,7 @@ Makefile: ../qt_http/qt_http.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /us
 /usr/lib64/qt5/mkspecs/features/yacc.prf:
 /usr/lib64/qt5/mkspecs/features/lex.prf:
 ../qt_http/qt_http.pro:
+/usr/lib64/libQt5Widgets.prl:
 /usr/lib64/libQt5Gui.prl:
 /usr/lib64/libQt5Sql.prl:
 /usr/lib64/libQt5WebSockets.prl:
@@ -464,8 +479,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../qt_http/testserver.h ../qt_http/xmlvalid.h ../qt_http/xmlcreator.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../qt_http/main.cpp ../qt_http/testserver.cpp ../qt_http/xmlvalid.cpp ../qt_http/xmlcreator.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_http/testserver.h ../qt_http/xmlvalid.h ../qt_http/xmlcreator.h ../qt_http/monitor.h ../qt_http/xmlestados.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_http/main.cpp ../qt_http/testserver.cpp ../qt_http/xmlvalid.cpp ../qt_http/xmlcreator.cpp ../qt_http/monitor.cpp ../qt_http/xmlestados.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_http/monitor.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -496,23 +512,35 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_testserver.cpp
+compiler_moc_header_make_all: moc_testserver.cpp moc_monitor.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_testserver.cpp
+	-$(DEL_FILE) moc_testserver.cpp moc_monitor.cpp
 moc_testserver.cpp: ../qt_http/testserver.h \
 		moc_predefs.h \
 		/usr/lib64/qt5/bin/moc
-	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/ivan/servicio_tecnico_moviles/qt_http -I/home/ivan/servicio_tecnico_moviles/qt_http -I/usr/include/qt5 -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtWebSockets -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/c++/7/x86_64-suse-linux -I/usr/include/c++/7/backward -I/usr/lib64/gcc/x86_64-suse-linux/7/include -I/usr/local/include -I/usr/lib64/gcc/x86_64-suse-linux/7/include-fixed -I/usr/x86_64-suse-linux/include -I/usr/include ../qt_http/testserver.h -o moc_testserver.cpp
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/ivan/servicio_tecnico_moviles/qt_http -I/home/ivan/servicio_tecnico_moviles/qt_http -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtWebSockets -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/c++/7/x86_64-suse-linux -I/usr/include/c++/7/backward -I/usr/lib64/gcc/x86_64-suse-linux/7/include -I/usr/local/include -I/usr/lib64/gcc/x86_64-suse-linux/7/include-fixed -I/usr/x86_64-suse-linux/include -I/usr/include ../qt_http/testserver.h -o moc_testserver.cpp
+
+moc_monitor.cpp: ../qt_http/monitor.h \
+		moc_predefs.h \
+		/usr/lib64/qt5/bin/moc
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/ivan/servicio_tecnico_moviles/qt_http -I/home/ivan/servicio_tecnico_moviles/qt_http -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtWebSockets -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/c++/7/x86_64-suse-linux -I/usr/include/c++/7/backward -I/usr/lib64/gcc/x86_64-suse-linux/7/include -I/usr/local/include -I/usr/lib64/gcc/x86_64-suse-linux/7/include-fixed -I/usr/x86_64-suse-linux/include -I/usr/include ../qt_http/monitor.h -o moc_monitor.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
+compiler_uic_make_all: ui_monitor.h
+compiler_uic_clean:
+	-$(DEL_FILE) ui_monitor.h
+ui_monitor.h: ../qt_http/monitor.ui \
+		/usr/lib64/qt5/bin/uic
+	/usr/lib64/qt5/bin/uic ../qt_http/monitor.ui -o ui_monitor.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
+compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -539,7 +567,8 @@ main.o: ../qt_http/main.cpp ../qt_http/testserver.h \
 		../qt_http/libxml/xmlautomata.h \
 		../qt_http/libxml/entities.h \
 		../qt_http/libxml/encoding.h \
-		../qt_http/libxml/xmlIO.h
+		../qt_http/libxml/xmlIO.h \
+		../qt_http/xmlestados.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../qt_http/main.cpp
 
 testserver.o: ../qt_http/testserver.cpp ../qt_http/testserver.h
@@ -572,8 +601,18 @@ xmlvalid.o: ../qt_http/xmlvalid.cpp ../qt_http/xmlvalid.h \
 xmlcreator.o: ../qt_http/xmlcreator.cpp ../qt_http/xmlcreator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o xmlcreator.o ../qt_http/xmlcreator.cpp
 
+monitor.o: ../qt_http/monitor.cpp ../qt_http/monitor.h \
+		ui_monitor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o monitor.o ../qt_http/monitor.cpp
+
+xmlestados.o: ../qt_http/xmlestados.cpp ../qt_http/xmlestados.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o xmlestados.o ../qt_http/xmlestados.cpp
+
 moc_testserver.o: moc_testserver.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_testserver.o moc_testserver.cpp
+
+moc_monitor.o: moc_monitor.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_monitor.o moc_monitor.cpp
 
 ####### Install
 

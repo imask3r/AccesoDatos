@@ -15,6 +15,7 @@ INCLUDEPATH += .
 DEFINES += QT_DEPRECATED_WARNINGS
 
 QT += sql
+QT += widgets
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -28,9 +29,16 @@ CONFIG += console
 # Input
 HEADERS += testserver.h \
     xmlvalid.h \
-    xmlcreator.h
+    xmlcreator.h \
+    monitor.h \
+    xmlestados.h
 SOURCES += main.cpp testserver.cpp \
     xmlvalid.cpp \
-    xmlcreator.cpp
+    xmlcreator.cpp \
+    monitor.cpp \
+    xmlestados.cpp
 
 LIBS += -lxml2
+
+FORMS += \
+    monitor.ui
