@@ -15,6 +15,9 @@ public:
     explicit monitor(QWidget *parent = 0);
     ~monitor();
 
+private slots:
+    void on_pushButton_2_clicked();
+
 private:
     Ui::monitor *ui;
 };

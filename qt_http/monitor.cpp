@@ -1,5 +1,6 @@
 #include "monitor.h"
 #include "ui_monitor.h"
+#include "xmlestados.h"
 
 monitor::monitor(QWidget *parent) :
     QDialog(parent),
@@ -12,3 +13,4 @@ monitor::~monitor()
 {
     delete ui;
 }
+
