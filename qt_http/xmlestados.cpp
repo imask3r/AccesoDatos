@@ -54,9 +54,10 @@ xmlestados::xmlestados()
     std::cin >> estadomod;
     std::cout << "Nuevo estado para la ordern " << idmod << " :" << estadomod << std::endl;
 
-    if (idmod == "" || estadomod == "") {
-        std::cout << "No has seleccionado una opción válida" << std::endl;
-    } else {
-        //QSqlQuery insert("INSERT INTO  FROM estado_reparacion"); COMPLETARRRR
-    }
+    //QSqlQuery modificacion("UPDATE idEstadoReparacion SET estado =" + estadomod + " WHERE idEstadoReparacion ="+idmod);
+
+    /*while (modificacion.next()) {
+        std::cout << "Modificacion lista" << std::endl;
+    }*/
+
 }
